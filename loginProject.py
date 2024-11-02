@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request  # type: ignore
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return render_template('login.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     if request.method == 'POST':
@@ -20,5 +24,11 @@ def login_page():
         else:
             msg = "Usuário ou senha incorretos!"
             return render_template('login.html', msg=msg)
-    
     return render_template('login.html')
+
+@app.route('/success')
+def success_page():
+    return render_template('success.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
